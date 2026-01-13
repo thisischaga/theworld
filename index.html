@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The World - Tech, News & AI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: #1a1a2e;
+            background: #f8f9fa;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            padding: 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .logo-box {
+            width: 52px;
+            height: 52px;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.25);
+            transition: all 0.3s ease;
+        }
+
+        .logo-container:hover .logo-box {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 12px 28px rgba(99, 102, 241, 0.35);
+        }
+
+        .logo-title {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-title h1 {
+            font-size: 1.75rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+        }
+
+        .logo-title span {
+            font-size: 0.7rem;
+            color: #64748b;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-top: -2px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 8px;
+        }
+
+        nav a {
+            color: #475569;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 10px 20px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav a:hover {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: moveGrid 20s linear infinite;
+        }
+
+        @keyframes moveGrid {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h2 {
+            font-size: 3.5rem;
+            margin-bottom: 1.2rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            opacity: 0.95;
+            font-weight: 400;
+        }
+
+        section {
+            padding: 60px 0;
+            display: none;
+        }
+
+        section.active {
+            display: block;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .article-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(0,0,0,0.04);
+        }
+
+        .article-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(99, 102, 241, 0.15);
+            border-color: rgba(99, 102, 241, 0.2);
+        }
+
+        .article-image {
+            width: 100%;
+            height: 220px;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .article-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.1), transparent 70%);
+        }
+
+        .article-content {
+            padding: 24px;
+        }
+
+        .article-category {
+            display: inline-block;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+        }
+
+        .article-card h3 {
+            font-size: 1.5rem;
+            margin: 12px 0;
+            color: #1a1a2e;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .article-meta {
+            color: #64748b;
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+
+        .article-card p {
+            color: #475569;
+            margin-bottom: 18px;
+            line-height: 1.7;
+        }
+
+        .read-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #6366f1;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s;
+        }
+
+        .read-more:hover {
+            gap: 10px;
+            color: #8b5cf6;
+        }
+
+        .content-box {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+            margin-bottom: 30px;
+            border: 1px solid rgba(0,0,0,0.04);
+        }
+
+        .content-box h2 {
+            color: #6366f1;
+            margin-bottom: 20px;
+            font-size: 2rem;
+            font-weight: 800;
+        }
+
+        .content-box h3 {
+            color: #8b5cf6;
+            margin-top: 24px;
+            margin-bottom: 12px;
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .content-box p {
+            color: #475569;
+            line-height: 1.8;
+            margin-bottom: 16px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 24px;
+            margin: 40px 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%);
+            color: white;
+            padding: 36px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 8px 24px rgba(99, 102, 241, 0.25);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .stat-card h3 {
+            font-size: 3.5rem;
+            margin-bottom: 8px;
+            font-weight: 800;
+        }
+
+        .stat-card p {
+            font-size: 1rem;
+            opacity: 0.95;
+            font-weight: 600;
+        }
+
+        .contact-form {
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 700;
+            color: #1a1a2e;
+            font-size: 0.95rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #6366f1;
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+        }
+
+        .form-group textarea {
+            min-height: 160px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: white;
+            padding: 16px 40px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.25);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 28px rgba(99, 102, 241, 0.35);
+        }
+
+        footer {
+            background: #1a1a2e;
+            color: white;
+            text-align: center;
+            padding: 50px 0 30px;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .footer-section {
+            margin: 20px;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .footer-section p {
+            color: #94a3b8;
+            font-size: 0.95rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin: 30px 0;
+        }
+
+        .social-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            padding: 8px 16px;
+            border-radius: 8px;
+        }
+
+        .social-links a:hover {
+            background: #6366f1;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                height: auto;
+                padding: 16px 0;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
+                width: 100%;
+            }
+
+            .hero h2 {
+                font-size: 2.2rem;
+            }
+
+            .articles-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="javascript:void(0)" onclick="showSection('home')" class="logo-container">
+                    <div class="logo-box">🌍</div>
+                    <div class="logo-title">
+                        <h1>THE WORLD</h1>
+                        <span>Tech & AI News</span>
+                    </div>
+                </a>
+                <nav>
+                    <ul>
+                        <li><a href="javascript:void(0)" onclick="showSection('home')">Home</a></li>
+                        <li><a href="javascript:void(0)" onclick="showSection('tech')">Tech</a></li>
+                        <li><a href="javascript:void(0)" onclick="showSection('ai')">AI</a></li>
+                        <li><a href="javascript:void(0)" onclick="showSection('news')">News</a></li>
+                        <li><a href="javascript:void(0)" onclick="showSection('contact')">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div class="hero">
+        <div class="hero-content">
+            <div class="container">
+                <h2>Explore the World of Technology</h2>
+                <p>News, innovations and trends in tech and artificial intelligence</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- HOME SECTION -->
+    <section id="home" class="active">
+        <div class="container">
+            <div class="content-box">
+                <h2>Welcome to The World</h2>
+                <p>The World is your premier destination for cutting-edge technology news, artificial intelligence insights, and the latest innovations shaping our digital future. We bring you comprehensive coverage of the tech landscape, from breakthrough discoveries to industry trends.</p>
+                
+                <h3>What We Cover</h3>
+                <p>Our expert team of writers and analysts deliver in-depth articles on artificial intelligence, machine learning, cybersecurity, web development, mobile technology, space exploration, biotechnology, and sustainable innovation. We're committed to making complex technology accessible and engaging for everyone.</p>
+                
+                <h3>Our Mission</h3>
+                <p>We believe technology has the power to transform lives and solve global challenges. Our mission is to inform, educate, and inspire our readers by providing accurate, timely, and thought-provoking content that explores both the opportunities and challenges of our rapidly evolving technological world.</p>
+            </div>
+
+            <div class="stats">
+                <div class="stat-card">
+                    <h3>500+</h3>
+                    <p>Articles Published</p>
+                </div>
+                <div class="stat-card">
+                    <h3>50K+</h3>
+                    <p>Monthly Readers</p>
+                </div>
+                <div class="stat-card">
+                    <h3>24/7</h3>
+                    <p>News Coverage</p>
+                </div>
+            </div>
+
+            <h2 class="section-title">Latest Articles</h2>
+            
+            <div class="articles-grid">
+                <article class="article-card">
+                    <div class="article-image">🤖</div>
+                    <div class="article-content">
+                        <span class="article-category">AI</span>
+                        <h3>The Future of Generative AI Models</h3>
+                        <div class="article-meta">January 13, 2026 • 5 min read</div>
+                        <p>Generative AI models continue to evolve at an impressive pace. Discover the latest breakthroughs and what they mean for our future.</p>
+                        <a href="articles/future-of-generative-ai.html" class="read-more">Read more →</a>
+                    </div>
+                </article>
+
+                <article class="article-card">
+                    <div class="article-image">💻</div>
+                    <div class="article-content">
+                        <span class="article-category">Tech</span>
+                        <h3>Web Development Trends in 2026</h3>
+                        <div class="article-meta">January 12, 2026 • 7 min read</div>
+                        <p>Frameworks, tools and practices shaping modern web development. A comprehensive guide to staying current.</p>
+                        <a href="articles/web-development-trends-in-2026.html" class="read-more">Read more →</a>
+                    </div>
+                </article>
+
+                <article class="article-card">
+                    <div class="article-image">🌐</div>
+                    <div class="article-content">
+                        <span class="article-category">News</span>
+                        <h3>The 6G Connectivity Revolution</h3>
+                        <div class="article-meta">January 10, 2026 • 6 min read</div>
+                        <p>First tests of 6G technology promise incredible speeds. An in-depth analysis of this new era of connectivity.</p>
+                        <a href="articles/the-6g-connectivity-revolution.html" class="read-more">Read more →</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- TECH SECTION -->
+    <section id="tech">
+        <div class="container">
+            <div class="content-box">
+                <h2>Technology News & Innovations</h2>
+                <p>Stay ahead of the curve with our comprehensive technology coverage. From hardware breakthroughs to software innovations, we bring you the stories that matter in the tech world.</p>
+                
+                <h3>Web Development</h3>
+                <p>Explore the latest frameworks, languages, and tools transforming web development. We cover React, Vue, Angular, Next.js, and emerging technologies that are shaping the future of the web. Learn about performance optimization, accessibility best practices, and the newest development methodologies.</p>
+                
+                <h3>Mobile Technology</h3>
+                <p>From foldable smartphones to augmented reality applications, mobile technology continues to push boundaries. Discover reviews of the latest devices, analysis of mobile operating systems, and insights into app development trends that are redefining how we interact with technology.</p>
+                
+                <h3>Hardware & Computing</h3>
+                <p>Quantum computing, neuromorphic chips, and next-generation processors are revolutionizing computational power. We provide in-depth analysis of hardware innovations, from consumer electronics to enterprise-level infrastructure, helping you understand the technology powering our digital world.</p>
+            </div>
+
+            <div class="articles-grid">
+                <article class="article-card">
+                    <div class="article-image">💻</div>
+                    <div class="article-content">
+                        <span class="article-category">Tech</span>
+                        <h3>Web Development Trends in 2026</h3>
+                        <div class="article-meta">January 12, 2026 • 7 min read</div>
+                        <p>Frameworks, tools and practices shaping modern web development. A comprehensive guide to staying current.</p>
+                        <a href="articles/web-development-trends-in-2026.html" class="read-more">Read more →</a>
+                    </div>
+                </article>
+
+                <article class="article-card">
+                    <div class="article-image">⚡</div>
+                    <div class="article-content">
+                        <span class="article-category">Innovation</span>
+                        <h3>Revolutionary Batteries Changing Everything</h3>
+                        <div class="article-meta">January 5, 2026 • 5 min read</div>
+                        <p>A new generation of batteries promises to revolutionize the tech industry and electric automotive sector.</p>
+                        <a href="articles/revolutionary-batteries-changing-everything.html" class="read-more">Read more →</a>
+                    </div>
+                </article>
+
+                <article class="article-card">
+                    <div class="article-image">📱</div>
+                    <div class="article-content">
+                        <span class="article-category">Mobile</span>
+                        <h3>Foldable Phones: The Next Generation</h3>
+                        <div class="article-meta">December 25, 2025 • 5 min read</div>
+                        <p>New foldable smartphone designs are pushing boundaries. We review the latest releases and innovations.</p>
+                        <a href="javascript:void(0)" onclick="alert('Article coming soon!')" class="read-more">Read more →</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI SECTION -->
+    <section id="ai">
+        <div class="container">
+            <div class="content-box">
+                <h2>Artificial Intelligence Insights</h2>
+                <p>Artificial Intelligence is transforming every aspect of our lives. Our AI section provides comprehensive coverage of machine learning, neural networks, natural language processing, and the ethical implications of AI advancement.</p>
+                
+                <h3>Machine Learning & Deep Learning</h3>
+                <p>Dive deep into the algorithms and architectures powering modern AI systems. We explore convolutional neural networks, transformers, reinforcement learning, and the latest research breakthroughs from leading institutions worldwide. Understand how these technologies are being applied across industries.</p>
+                
+                <h3>Generative AI</h3>
+                <p>Large language models, image generation, video synthesis, and audio creation represent the cutting edge of AI capabilities. We analyze the latest models from OpenAI, Anthropic, Google, and other pioneers, examining their capabilities, limitations, and potential impact on creative industries and knowledge work.</p>
+                
+                <h3>AI Ethics & Safety</h3>
+                <p>As AI systems become more powerful, questions of ethics, safety, and alignment become critical. We examine bias in algorithms, privacy concerns, regulatory approaches, and efforts to ensure AI development benefits humanity. Stay informed about the debates shaping AI's future.</p>
+            </div>
+
+            <div class="articles-grid">
+                <article class="article-card">
+                    <div class="article-image">🤖</div>
+                    <div class="article-content">
+                        <span class="article-category">AI</span>
+                        <h3>The Future of Generative AI Models</h3>
+                        <div class="article-meta">January 13, 2026 • 5 min read</div>
+                        <p>Generative AI models continue to evolve at an impressive pace. Discover the latest breakthroughs.</p>
+                        <a href="articles/future-of-generative-ai.html" class="read-more">Read more →</a>
+                    </div>
+                </article>
+
+                <article class="article-card">
+                    <div class="article-image">🎮</div>
+                    <div class="article-content">
+                        <span class="article-category">Gaming</span>
+                        <h3>AI Transforms the Gaming Industry</h3>
+                        <div class="article-meta">January 3, 2026 • 6 min read</div>
+                        <p>Intelligent NPCs, advanced procedural generation and adaptive gameplay. AI is redefining gaming.</p>
+                        <a href="javascript:void(0)" onclick="alert('Article coming soon!')" class="read-more">Read more →</a>
+                    </div>
+                </article>
+
+                <article class="article-card">
+                    <div class="article-image">🧬</div>
+                    <div class="article-content">
+                        <span class="article-category">Biotech</span>
+                        <h3>CRISPR Technology: Medical Breakthroughs</h3>
+                        <div class="article-meta">December 28, 2025 • 9 min read</div>
+                        <p>Gene editing technology is achieving remarkable results in treating genetic diseases.</p>
+                        <a href="articles/crispr-technology-medical-breakthroughs.html" class="read-more">Read more →</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEWS SECTION -->
+    <section id="news">
+        <div class="container">
+            <div class="content-box">
+                <h2>Breaking Tech News</h2>
+                <p>Stay informed with real-time updates on the most important developments in technology, science, and innovation. Our news section covers product launches, funding announcements, regulatory changes, and industry-shaping events.</p>
+                
+                <h3>Industry Updates</h3>
+                <p>From Silicon Valley to tech hubs worldwide, we track the movements and announcements that shape the technology industry. Follow mergers and acquisitions, executive changes, strategic partnerships, and market trends that impact the companies driving innovation forward.</p>
+                
+                <h3>Product Launches</h3>
+                <p>Be first to know about new devices, software releases, and platform updates. We provide hands-on reviews, detailed specifications, and expert analysis of the latest products from Apple, Google, Microsoft, Samsung, and emerging tech companies challenging established players.</p>
+                
+                <h3>Research & Development</h3>
+                <p>Scientific breakthroughs often precede commercial applications by years. We cover cutting-edge research from universities, laboratories, and corporate R&D departments, translating complex findings into accessible insights about technologies that will shape tomorrow.</p>
+            </div>
+
+            <div class="articles-grid">
+                <article class="article-card">
+                    <div class="article-image">🌐</div>
+                    <div class="article-content">
+                        <span class="article-category">News</span>
+                        <h3>The 6G Connectivity Revolution</h3>
+                        <div class="article-meta">January 10, 2026 • 6 min read</div>
+                        <p>First tests of 6G technology promise incredible speeds. Analysis of this new connectivity era.</p>
+                        <a href="articles/the-6g-connectivity-revolution.html" class="read-more">Read more →</a>
+                    </div>
+                </article>
+
+                <article class="article-card">
+                    <div class="article-image">🔒</div>
+                    <div class="article-content">
+                        <span class="article-category">Security</span>
+                        <h3>Cybersecurity: Threats to Watch in 2026</h3>
+                        <div class="article-meta">January 8, 2026 • 8 min read</div>
+                        <p>Data protection, ransomware and new attack methods. How to effectively protect yourself.</p>
+                        <a href="articles/cybersecurity-threats-to-watch-in-2026.html" class="read-more">Read more →</a>
+                    </div>
+                </article>
+
+                <article class="article-card">
+                    <div class="article-image">🚀</div>
+                    <div class="article-content">
+                        <span class="article-category">Space Tech</span>
+                        <h3>Commercial Space Travel Reaches New Heights</h3>
+                        <div class="article-meta">January 1, 2026 • 7 min read</div>
+                        <p>Private space companies are making orbital tourism accessible. Explore this evolving industry.</p>
+                        <a href="articles/commercial-space-travel-reaches-new-heights.html" class="read-more">Read more →</a>
+                    </div>
+                </article>
+
+                <article class="article-card">
+                    <div class="article-image">🌍</div>
+                    <div class="article-content">
+                        <span class="article-category">Climate Tech</span>
+                        <h3>Green Technology Combating Climate Change</h3>
+                        <div class="article-meta">December 22, 2025 • 8 min read</div>
+                        <p>Innovative solutions in renewable energy and carbon capture showing promising results.</p>
+                        <a href="articles/green-technology-combating-climate-change.html" class="read-more">Read more →</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact">
+        <div class="container">
+            <div class="content-box">
+                <h2>Get in Touch</h2>
+                <p>We'd love to hear from you! Whether you have a story tip, feedback, partnership inquiry, or just want to say hello, don't hesitate to reach out.</p>
+                
+                <div class="contact-form">
+                    <form onsubmit="handleSubmit(event)">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>About The World</h4>
+                    <p>Your source for the latest in technology, AI, and innovation. Stay informed with our expert analysis and in-depth articles.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Us</h4>
+                    <p>Email:
+                        <a href="mailto:contact@theworld.com">contact@theworld.com</a>
+                    </p>
+                    <p>Phone: +1 (555) 123-4567</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="javascript:void(0)" onclick="alert('Follow us on Twitter!')">Twitter</a>
+                        <a href="javascript:void(0)" onclick="alert('Follow us on Facebook!')">Facebook</a>
+                        <a href="javascript:void(0)" onclick="alert('Follow us on LinkedIn!')">LinkedIn</a>
+                    </div>
+                </div>
+            </div>
+            <p>&copy; 2026 The World. All rights reserved.</p>
+        </div>
+    </footer>
+    <script>
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => {
+                if (section.id === sectionId) {
+                    section.classList.add('active');
+                } else {
+                    section.classList.remove('active');
+                }
+            });
+            window.scrollTo(0, 0);
+        }
+
+        function handleSubmit(event) {
+            event.preventDefault();
+            alert('Thank you for reaching out! We will get back to you soon.');
+            event.target.reset();
+        }
+    </script>
+</body>
+</html>
