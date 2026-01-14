@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <url>
+    <loc>https://theeword.netlify.app/</loc>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>https://theeword.netlify.app/generative-ai.html</loc>
+    
+    <priority>0.8</priority>
+  </url>
+    <url>
+        <loc>https://theeword.netlify.app/articles/ai-transforms-the-gaming-industry.html</loc>
+        <priority>0.7</priority>
+
+  </url>
+    <url>
+        <loc>https://theeword.netlify.app/articles/commercial-space-travel-reaches-new-heights.html</loc>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://theeword.netlify.app/articles/crispr-technology-medical-breakthroughs.html</loc>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://theeword.netlify.app/articles/cybersecurity-threats-to-watch-in-2026.html</loc>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://theeword.netlify.app/articles/foldable-phones-the-next-generation.html</loc>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://theeword.netlify.app/Articles/future-of-generative-ai.html</loc>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://theeword.netlify.app/articles/revolutionary-batteries-changing-everything.html</loc>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://theeword.netlify.app/articles/the-6g-connectivity-revolution.html</loc>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://theeword.netlify.app/articles/the-rise-of-smart-cities.html</loc>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://theeword.netlify.app/articles/virtual-reality-in-education.html</loc>
+        <priority>0.7</priority>
+    </url>
+    
+
+</urlset>
